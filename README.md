@@ -1,49 +1,48 @@
 # QA-Ops-Docs
 A unified repository for all QA Operations documentation: test lifecycle, bug lifecycle, triage workflows, release processes, checklists, templates, and operational governance.
-# QA Operations Docs 📘  
-Centralized documentation for QA processes, workflows, governance, and operational standards.
 
-## Purpose
-This repository defines how QA operates as an organization — covering processes, SLAs, reporting, communication protocols, release readiness, and governance.  
-It serves as the single source of truth for QA execution across teams and projects.
+# QA Operations 📘  
+All QA Operations documentation is maintained in the **GitHub Wiki** for clarity, scalability, and easy navigation.
 
-## Contents
+## 📚 Wiki Index
 
 ### 1. Processes  
-- Test lifecycle  
-- Bug lifecycle  
-- Release readiness  
-- Environment management  
+- [Test Lifecycle](../../wiki/Test-Lifecycle)  
+- [Bug Lifecycle](../../wiki/Bug-Lifecycle)  
+- [Release Readiness](../../wiki/Release-Readiness)  
+- [Environment Management](../../wiki/Environment-Management)
 
 ### 2. Workflows  
-- Regression workflow  
-- Smoke & sanity workflow  
-- Hotfix workflow  
-- Bug triage workflow  
+- [Regression Workflow](../../wiki/Regression-Workflow)  
+- [Smoke & Sanity Workflow](../../wiki/Smoke-Sanity-Workflow)  
+- [Hotfix Workflow](../../wiki/Hotfix-Workflow)  
+- [Bug Triage Workflow](../../wiki/Bug-Triage-Workflow)
 
 ### 3. Operations  
-- SLA & KPI definitions  
-- Reporting standards  
-- Risk management  
-- Communication protocols  
+- [SLA & KPI Definitions](../../wiki/SLA-and-KPI)  
+- [Reporting Standards](../../wiki/Reporting-Standards)  
+- [Risk Management](../../wiki/Risk-Management)  
+- [Communication Protocols](../../wiki/Communication-Protocols)
 
 ### 4. Checklists  
-- Release checklist  
-- Regression checklist  
-- Bug triage checklist  
-- Environment checklist  
+- [Release Checklist](../../wiki/Release-Checklist)  
+- [Regression Checklist](../../wiki/Regression-Checklist)  
+- [Bug Triage Checklist](../../wiki/Bug-Triage-Checklist)  
+- [Environment Checklist](../../wiki/Environment-Checklist)
 
 ### 5. Templates  
-- Test plan template  
-- Daily QA report  
-- Release sign-off  
-- Bug RCA template  
+- [Test Plan Template](../../wiki/Test-Plan-Template)  
+- [Daily QA Report](../../wiki/Daily-QA-Report)  
+- [Release Sign-Off](../../wiki/Release-Signoff)  
+- [Bug RCA Template](../../wiki/Bug-RCA-Template)
 
 ### 6. Governance  
-- QA policies  
-- Compliance & audit  
-- Change control & versioning  
+- [QA Policies](../../wiki/QA-Policies)  
+- [Compliance & Audit](../../wiki/Compliance-Audit)  
+- [Change Control](../../wiki/Change-Control)
 
-## Contribution
-All documents follow a clean, professional, senior-level formatting style.  
-Updates must maintain clarity, consistency, and operational accuracy.
+---
+
+## Contribution  
+All updates should be made directly in the **Wiki** to maintain consistency and operational accuracy.
+
