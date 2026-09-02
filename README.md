@@ -14,7 +14,7 @@ All QA Operations documentation is maintained in the **GitHub Wiki** for clarity
 
 ### 2. Workflows  
 - [Regression Workflow](../../wiki/Regression-Workflow)  
-- [Smoke & Sanity Workflow](../../wiki/Smoke-Sanity-Workflow)  
+- [Smoke & Sanity Workflow](../../wiki/Smoke-&-Sanity-Workflow)  
 - [Hotfix Workflow](../../wiki/Hotfix-Workflow)  
 - [Bug Triage Workflow](../../wiki/Bug-Triage-Workflow)
 
