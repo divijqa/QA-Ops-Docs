@@ -38,7 +38,7 @@ All QA Operations documentation is maintained in the **GitHub Wiki** for clarity
 
 ### 6. Governance  
 - [QA Policies](../../wiki/QA-Policies)  
-- [Compliance & Audit](../../wiki/Compliance and Audit)  
+- [Compliance & Audit](../../wiki/Compliance-and-Audit)  
 - [Change Control](../../wiki/Change-Control)
 
 ---
