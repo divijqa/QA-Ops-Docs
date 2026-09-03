@@ -47,7 +47,28 @@
       .app-sub-sidebar { display: none !important; }
       .docsify-pagination-container { border-top-color: var(--line); }
       @media (max-width: 1100px) { .qa-page-outline { display: none; } .markdown-section { margin-right: 0; } }
-      @media (max-width: 768px) { .sidebar { width: 290px; } html body.ready nav.app-nav { left: 0 !important; padding: 17px 23px; overflow-x: auto; } .app-nav p { gap: 14px; justify-content: flex-start; white-space: nowrap; } .app-nav a { font-size: .69rem; } .markdown-section { padding: 112px 26px 70px; } }
+      @media (max-width: 768px) {
+        html body.ready nav.app-nav { display: none !important; }
+        body > .sidebar, .sidebar-toggle { display: none !important; }
+        .qa-mobile-menu-toggle { position: fixed; right: 14px; bottom: 14px; display: grid; width: 46px; height: 46px; place-items: center; border: 1px solid var(--mint); color: var(--mint); background: var(--ink); font-size: 1.3rem; z-index: 31; }
+        .qa-mobile-menu { position: fixed; inset: 0; display: none; overflow-y: auto; padding: 34px 24px 72px; background: var(--ink); color: #d8e3df; z-index: 30; }
+        body.qa-mobile-menu-open .qa-mobile-menu { display: block; }
+        .qa-mobile-menu::before { display: block; margin-bottom: 28px; color: var(--paper); content: "QA OPERATIONS"; font-family: "DM Mono", monospace; font-size: .72rem; letter-spacing: .1em; }
+        .qa-mobile-menu .sidebar-nav { padding: 0; }
+        .qa-mobile-menu ul { padding: 0; margin: 0; list-style: none; }
+        .qa-mobile-menu li { margin: 0; }
+        .qa-mobile-menu a { display: block; padding: 9px 0; color: #c4d2ce; font-size: .9rem; font-weight: 600; text-decoration: none; }
+        .qa-mobile-menu > .sidebar-nav > ul > li > p { position: relative; margin: 28px 0 7px; padding-right: 24px; color: var(--mint); font-family: "DM Mono", monospace; font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+        .qa-mobile-menu > .sidebar-nav > ul > li > p::after { position: absolute; right: 0; content: "+"; }
+        .qa-mobile-menu > .sidebar-nav > ul > li.is-open > p::after { content: "-"; }
+        .qa-mobile-menu > .sidebar-nav > ul > li.is-single > p::after { display: none; }
+        .qa-mobile-menu > .sidebar-nav > ul > li > ul { display: none !important; }
+        .qa-mobile-menu > .sidebar-nav > ul > li.is-open > ul { display: block !important; }
+        .sidebar { width: 300px; }
+        .markdown-section { width: 100%; padding: 34px 22px 72px; }
+        .markdown-section h1 { font-size: clamp(2.25rem, 11vw, 3.1rem); overflow-wrap: anywhere; }
+        .markdown-section h2 { font-size: 1.35rem; }
+      }
     </style>
   </head>
   <body>
@@ -105,6 +126,22 @@
               if (!group.querySelector(":scope > ul")) group.classList.add("is-single");
               if (group.querySelector(".active")) group.classList.add("is-open");
             });
+            var mobileMenu = document.querySelector(".qa-mobile-menu");
+            if (!mobileMenu) {
+              mobileMenu = document.createElement("aside");
+              mobileMenu.className = "qa-mobile-menu";
+              document.querySelector(".content").appendChild(mobileMenu);
+            }
+            mobileMenu.innerHTML = document.querySelector(".sidebar-nav").outerHTML;
+            var menuButton = document.querySelector(".qa-mobile-menu-toggle");
+            if (!menuButton) {
+              menuButton = document.createElement("button");
+              menuButton.className = "qa-mobile-menu-toggle";
+              menuButton.type = "button";
+              menuButton.setAttribute("aria-label", "Open documentation navigation");
+              menuButton.textContent = "≡";
+              document.querySelector(".content").appendChild(menuButton);
+            }
           }, 0);
           var outlinePanel = document.querySelector(".qa-page-outline");
           if (!outlinePanel) {
@@ -128,6 +165,14 @@
         });
       }];
       document.addEventListener("click", function (event) {
+        var mobileMenuButton = event.target.closest(".qa-mobile-menu-toggle");
+        if (mobileMenuButton) {
+          document.body.classList.toggle("qa-mobile-menu-open");
+          return;
+        }
+        if (event.target.closest(".qa-mobile-menu a")) {
+          document.body.classList.remove("qa-mobile-menu-open");
+        }
         var navbarLink = event.target.closest(".app-nav a");
         if (navbarLink) {
           event.preventDefault();
