@@ -176,12 +176,6 @@
         if (event.target.closest(".qa-mobile-menu a")) {
           document.body.classList.remove("qa-mobile-menu-open");
         }
-        var navbarLink = event.target.closest(".app-nav a");
-        if (navbarLink) {
-          event.preventDefault();
-          window.location.assign(navbarLink.href);
-          return;
-        }
         var heading = event.target.closest(".sidebar-nav > ul > li > p");
         if (!heading) return;
         heading.parentElement.classList.toggle("is-open");
