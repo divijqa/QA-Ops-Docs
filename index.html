@@ -25,11 +25,11 @@
       .sidebar-nav > ul > li.is-open > ul { display: block !important; }
       .sidebar-toggle { padding: 8px 10px; background: var(--ink); }
       .sidebar-toggle span { background-color: var(--mint); }
-      .page-outline { position: fixed; top: 90px; right: 34px; width: 185px; z-index: 2; border-left: 1px solid var(--line); }
-      .page-outline strong { display: block; margin: 0 0 10px 14px; color: var(--sea); font-family: "DM Mono", monospace; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; }
-      .page-outline a { display: block; padding: 5px 0 5px 14px; color: #647273; font-size: .72rem; line-height: 1.35; text-decoration: none; }
-      .page-outline a:hover { color: var(--sea); }
-      .page-outline .level-3 { padding-left: 28px; font-size: .68rem; }
+      .qa-page-outline { position: fixed; top: 90px; right: 34px; width: 185px; padding-left: 14px; border-left: 1px solid var(--line); z-index: 2; }
+      .qa-page-outline strong { display: block; margin: 0 0 10px; color: var(--sea); font-family: "DM Mono", monospace; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; }
+      .qa-page-outline a { display: block; padding: 5px 0; color: #647273; font-size: .72rem; line-height: 1.35; text-decoration: none; }
+      .qa-page-outline a:hover { color: var(--sea); }
+      .qa-page-outline .level-3 { padding-left: 14px; font-size: .68rem; }
       .app-nav { margin: 0; padding: 18px 48px; border-bottom: 1px solid var(--line); background: var(--paper); }
       .app-nav a { margin-left: 24px; color: var(--ink); font-size: .75rem; font-weight: 800; text-decoration: none; }
       .app-nav a:last-child { padding-bottom: 5px; border-bottom: 2px solid var(--signal); }
@@ -45,13 +45,12 @@
       .github-corner svg { fill: var(--sea); color: var(--paper); }
       .app-sub-sidebar { display: none !important; }
       .docsify-pagination-container { border-top-color: var(--line); }
-      @media (max-width: 1100px) { .page-outline { display: none; } .markdown-section { margin-right: 0; } }
+      @media (max-width: 1100px) { .qa-page-outline { display: none; } .markdown-section { margin-right: 0; } }
       @media (max-width: 768px) { .sidebar { width: 290px; } .app-nav { padding: 17px 23px; } .app-nav a { margin-left: 14px; font-size: .69rem; } .markdown-section { padding: 56px 26px 70px; } }
     </style>
   </head>
   <body>
     <div id="app">Loading QA Operations documentation...</div>
-    <aside class="page-outline" aria-label="On this page"><strong>On this page</strong><nav id="page-outline"></nav></aside>
     <script>
       window.$docsify = {
         name: "QA Operations",
@@ -96,15 +95,24 @@
               if (group.querySelector(".active")) group.classList.add("is-open");
             });
           }, 0);
-          var outline = document.getElementById("page-outline");
-          outline.innerHTML = "";
+          var outlinePanel = document.querySelector(".qa-page-outline");
+          if (!outlinePanel) {
+            outlinePanel = document.createElement("aside");
+            outlinePanel.className = "qa-page-outline";
+            outlinePanel.setAttribute("aria-label", "On this page");
+            document.querySelector(".content").appendChild(outlinePanel);
+          }
+          outlinePanel.replaceChildren();
+          var label = document.createElement("strong");
+          label.textContent = "On this page";
+          outlinePanel.appendChild(label);
           document.querySelectorAll(".markdown-section h2, .markdown-section h3").forEach(function (heading) {
             if (!heading.id) return;
             var link = document.createElement("a");
-            link.href = "#" + heading.id;
+            link.href = "#" + vm.route.path + "?id=" + heading.id;
             link.textContent = heading.textContent;
             link.className = "level-" + heading.tagName.slice(1);
-            outline.appendChild(link);
+            outlinePanel.appendChild(link);
           });
         });
       }];
