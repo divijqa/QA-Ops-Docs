@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="QA Operations documentation by Divij Mothe." />
+    <title>QA Operations | Divij Mothe</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
+      :root { --ink: #102b2f; --paper: #f5f5ef; --sea: #0f6663; --mint: #b8ded0; --signal: #f15a3a; --line: rgba(16, 43, 47, .15); --theme-color: var(--sea); }
+      body { color: var(--ink); background: var(--paper); font-family: "Manrope", sans-serif; }
+      .sidebar { width: 320px; padding: 28px 24px; background: var(--ink); color: #d8e3df; border-right: 0; }
+      .sidebar::before { display: block; margin: 0 0 28px 4px; color: var(--paper); content: "QA OPERATIONS"; font-family: "DM Mono", monospace; font-size: .77rem; letter-spacing: .1em; }
+      .sidebar .sidebar-nav { padding: 0; }
+      .sidebar ul li a { color: #c4d2ce; font-size: .87rem; font-weight: 600; }
+      .sidebar ul li a:hover, .sidebar ul li.active > a { color: var(--mint); }
+      .sidebar-nav > ul > li > p { margin: 27px 0 8px; color: var(--mint); font-family: "DM Mono", monospace; font-size: .67rem; letter-spacing: .1em; text-transform: uppercase; }
+      .sidebar-nav > ul > li:first-child > p { margin-top: 0; }
+      .sidebar ul li ul { margin: 6px 0; }
+      .sidebar-toggle { padding: 8px 10px; background: var(--ink); }
+      .sidebar-toggle span { background-color: var(--mint); }
+      .page-outline { position: fixed; top: 90px; right: 34px; width: 185px; z-index: 2; border-left: 1px solid var(--line); }
+      .page-outline strong { display: block; margin: 0 0 10px 14px; color: var(--sea); font-family: "DM Mono", monospace; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; }
+      .page-outline a { display: block; padding: 5px 0 5px 14px; color: #647273; font-size: .72rem; line-height: 1.35; text-decoration: none; }
+      .page-outline a:hover { color: var(--sea); }
+      .page-outline .level-3 { padding-left: 28px; font-size: .68rem; }
+      .app-nav { margin: 0; padding: 18px 48px; border-bottom: 1px solid var(--line); background: var(--paper); }
+      .app-nav a { margin-left: 24px; color: var(--ink); font-size: .75rem; font-weight: 800; text-decoration: none; }
+      .app-nav a:last-child { padding-bottom: 5px; border-bottom: 2px solid var(--signal); }
+      .markdown-section { max-width: 900px; margin-right: 210px; padding: 70px 58px 90px; }
+      .markdown-section h1, .markdown-section h2, .markdown-section h3 { color: var(--ink); font-family: "Manrope", sans-serif; font-weight: 800; letter-spacing: 0; }
+      .markdown-section h1 { font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1; }
+      .markdown-section h1 + p { max-width: 730px; color: #647273; font-size: 1.13rem; line-height: 1.65; }
+      .markdown-section h2 { margin-top: 62px; padding-bottom: 12px; border-bottom: 1px solid var(--line); font-size: 1.65rem; }
+      .markdown-section h3 { font-size: 1.12rem; }
+      .markdown-section a { color: var(--sea); font-weight: 700; }
+      .markdown-section a:hover { color: var(--signal); }
+      .markdown-section code { color: var(--sea); background: #e1eee7; font-family: "DM Mono", monospace; }
+      .github-corner svg { fill: var(--sea); color: var(--paper); }
+      .docsify-pagination-container { border-top-color: var(--line); }
+      @media (max-width: 1100px) { .page-outline { display: none; } .markdown-section { margin-right: 0; } }
+      @media (max-width: 768px) { .sidebar { width: 290px; } .app-nav { padding: 17px 23px; } .app-nav a { margin-left: 14px; font-size: .69rem; } .markdown-section { padding: 56px 26px 70px; } }
+    </style>
+  </head>
+  <body>
+    <div id="app">Loading QA Operations documentation...</div>
+    <aside class="page-outline" aria-label="On this page"><strong>On this page</strong><nav id="page-outline"></nav></aside>
+    <script>
+      window.$docsify = {
+        name: "QA Operations",
+        repo: "https://github.com/divijqa/QA-Ops-Docs",
+        homepage: "README.md",
+        loadSidebar: true,
+        loadNavbar: true,
+        subMaxLevel: 0,
+        auto2top: true,
+        externalLinkTarget: "_blank",
+        search: { placeholder: "Search QA documentation", noData: "No matching documentation.", depth: 3 }
+      };
+    </script>
+    <script>
+      window.$docsify.plugins = [function (hook, vm) {
+        var wikiPages = {
+          "processes/test-lifecycle.md": "Test-Lifecycle", "processes/bug-lifecycle.md": "Bug-Lifecycle",
+          "processes/release-readiness.md": "Release-Readiness", "processes/environment-management.md": "Environment-Management",
+          "workflows/regression-workflow.md": "Regression-Workflow", "workflows/smoke-sanity-workflow.md": "Smoke-%26-Sanity-Workflow",
+          "workflows/hotfix-workflow.md": "Hotfix-Workflow", "workflows/bug-triage-workflow.md": "Bug-Triage-Workflow",
+          "operations/sla-and-kpi.md": "SLA-and-KPI", "operations/reporting-standards.md": "Reporting-Standards",
+          "operations/risk-management.md": "Risk-Management", "operations/communication-protocols.md": "Communication-Protocols",
+          "checklists/release-checklist.md": "Release-Checklist", "checklists/regression-checklist.md": "Regression-Checklist",
+          "checklists/bug-triage-checklist.md": "Bug-Triage-Checklist", "checklists/environment-checklist.md": "Environment-Checklist",
+          "templates/test-plan-template.md": "Test-Plan-Template", "templates/daily-qa-report.md": "Daily-QA-Report",
+          "templates/release-signoff.md": "Release-Signoff", "templates/bug-rca-template.md": "Bug-RCA-Template",
+          "governance/qa-policies.md": "QA-Policies", "governance/compliance-and-audit.md": "Compliance-and-Audit",
+          "governance/change-control.md": "Change-Control"
+        };
+        hook.beforeEach(function (content, next) {
+          var page = wikiPages[vm.route.file];
+          if (!page) { next(content); return; }
+          fetch("https://raw.githubusercontent.com/wiki/divijqa/QA-Ops-Docs/" + page + ".md")
+            .then(function (response) { return response.ok ? response.text() : Promise.reject(); })
+            .then(function (markdown) { next(markdown); })
+            .catch(function () { next(content); });
+        });
+        hook.doneEach(function () {
+          var outline = document.getElementById("page-outline");
+          outline.innerHTML = "";
+          document.querySelectorAll(".markdown-section h2, .markdown-section h3").forEach(function (heading) {
+            if (!heading.id) return;
+            var link = document.createElement("a");
+            link.href = "#" + heading.id;
+            link.textContent = heading.textContent;
+            link.className = "level-" + heading.tagName.slice(1);
+            outline.appendChild(link);
+          });
+        });
+      }];
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  </body>
+</html>
