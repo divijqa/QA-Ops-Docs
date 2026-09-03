@@ -11,7 +11,7 @@
       :root { --ink: #102b2f; --paper: #f5f5ef; --sea: #0f6663; --mint: #b8ded0; --signal: #f15a3a; --line: rgba(16, 43, 47, .15); --theme-color: var(--sea); }
       body { color: var(--ink); background: var(--paper); font-family: "Manrope", sans-serif; }
       .sidebar { width: 320px; padding: 28px 24px; background: var(--ink); color: #d8e3df; border-right: 0; }
-      .sidebar::before { display: block; margin: 0 0 28px 4px; color: var(--paper); content: "QA OPERATIONS"; font-family: "DM Mono", monospace; font-size: .72rem; letter-spacing: .1em; }
+      .sidebar::before { display: block; margin: 12px 0 28px 4px; color: var(--paper); content: "QA OPERATIONS"; font-family: "DM Mono", monospace; font-size: .72rem; letter-spacing: .1em; }
       .sidebar .sidebar-nav { padding: 0; }
       .sidebar ul li a { color: #c4d2ce; font-size: .84rem; font-weight: 600; }
       .sidebar ul li a:hover, .sidebar ul li.active > a { color: var(--mint); }
@@ -30,10 +30,11 @@
       .qa-page-outline a { display: block; padding: 5px 0; color: #647273; font-size: .78rem; line-height: 1.38; text-decoration: none; }
       .qa-page-outline a:hover { color: var(--sea); }
       .qa-page-outline .level-3 { padding-left: 14px; font-size: .68rem; }
-      .app-nav { margin: 0; padding: 18px 48px; border-bottom: 1px solid var(--line); background: var(--paper); }
-      .app-nav a { margin-left: 26px; color: var(--ink); font-size: .79rem; font-weight: 800; text-decoration: none; }
-      .app-nav a:last-child { padding-bottom: 5px; border-bottom: 2px solid var(--signal); }
-      .markdown-section { max-width: 900px; margin-right: 230px; padding: 62px 58px 90px; }
+      html body.ready nav.app-nav { position: fixed !important; top: 0 !important; right: 0 !important; left: 320px !important; display: block !important; margin: 0; padding: 18px 48px; border-bottom: 1px solid var(--line); background: rgba(245, 245, 239, .96); z-index: 20; backdrop-filter: blur(10px); }
+      .app-nav p { display: flex; justify-content: flex-end; gap: 26px; margin: 0; }
+      .app-nav a { padding-bottom: 5px; color: var(--ink); font-size: .79rem; font-weight: 800; text-decoration: none; }
+      .app-nav a:hover, .app-nav a[aria-current="page"] { color: var(--sea); border-bottom: 2px solid var(--signal); }
+      .markdown-section { max-width: 900px; margin-right: 230px; padding: 132px 58px 90px; }
       .markdown-section h1, .markdown-section h2, .markdown-section h3 { color: var(--ink); font-family: "Manrope", sans-serif; font-weight: 800; letter-spacing: 0; }
       .markdown-section h1 { font-size: clamp(2.7rem, 4.5vw, 4.35rem); line-height: 1.06; }
       .markdown-section h1 + p { max-width: 730px; color: #647273; font-size: 1.08rem; line-height: 1.65; }
@@ -46,7 +47,7 @@
       .app-sub-sidebar { display: none !important; }
       .docsify-pagination-container { border-top-color: var(--line); }
       @media (max-width: 1100px) { .qa-page-outline { display: none; } .markdown-section { margin-right: 0; } }
-      @media (max-width: 768px) { .sidebar { width: 290px; } .app-nav { padding: 17px 23px; } .app-nav a { margin-left: 14px; font-size: .69rem; } .markdown-section { padding: 56px 26px 70px; } }
+      @media (max-width: 768px) { .sidebar { width: 290px; } html body.ready nav.app-nav { left: 0 !important; padding: 17px 23px; overflow-x: auto; } .app-nav p { gap: 14px; justify-content: flex-start; white-space: nowrap; } .app-nav a { font-size: .69rem; } .markdown-section { padding: 112px 26px 70px; } }
     </style>
   </head>
   <body>
@@ -60,12 +61,22 @@
         loadNavbar: true,
         subMaxLevel: 0,
         auto2top: true,
-        externalLinkTarget: "_blank",
+        externalLinkTarget: "_self",
         search: { placeholder: "Search QA documentation", noData: "No matching documentation.", depth: 3 }
       };
     </script>
     <script>
       window.$docsify.plugins = [function (hook, vm) {
+        function normalizeNavbar() {
+          var navbar = document.querySelector(".app-nav");
+          if (!navbar) return;
+          navbar.style.setProperty("position", "fixed", "important");
+          navbar.style.setProperty("top", "0", "important");
+          navbar.style.setProperty("right", "0", "important");
+          navbar.style.setProperty("left", innerWidth <= 768 ? "0" : "320px", "important");
+          navbar.querySelectorAll("a").forEach(function (link) { link.target = "_self"; });
+        }
+        new MutationObserver(normalizeNavbar).observe(document.documentElement, { childList: true, subtree: true });
         var wikiPages = {
           "processes/test-lifecycle.md": "Test-Lifecycle", "processes/bug-lifecycle.md": "Bug-Lifecycle",
           "processes/release-readiness.md": "Release-Readiness", "processes/environment-management.md": "Environment-Management",
@@ -117,13 +128,34 @@
         });
       }];
       document.addEventListener("click", function (event) {
+        var navbarLink = event.target.closest(".app-nav a");
+        if (navbarLink) {
+          event.preventDefault();
+          window.location.assign(navbarLink.href);
+          return;
+        }
         var heading = event.target.closest(".sidebar-nav > ul > li > p");
         if (!heading) return;
         heading.parentElement.classList.toggle("is-open");
-      });
+      }, true);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+    <script>
+      (function () {
+        var overrides = document.createElement("style");
+        overrides.textContent = "body .app-nav { position: fixed !important; top: 0 !important; right: 0 !important; left: 320px !important; z-index: 20 !important; } @media (max-width: 768px) { body .app-nav { left: 0 !important; } }";
+        document.head.appendChild(overrides);
+        function pinNavbar() {
+          var navbar = document.querySelector(".app-nav");
+          if (!navbar) return;
+          navbar.querySelectorAll("a").forEach(function (link) { link.target = "_self"; });
+        }
+        new MutationObserver(pinNavbar).observe(document.body, { childList: true, subtree: true });
+        addEventListener("resize", pinNavbar);
+        pinNavbar();
+      }());
+    </script>
   </body>
 </html>
