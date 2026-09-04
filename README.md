@@ -35,3 +35,6 @@ Checklists, templates, service expectations, and governance make routine work re
 
 Use the left navigation to explore each practice area. The [GitHub Wiki](https://github.com/divijqa/QA-Ops-Docs/wiki) remains the canonical documentation source.
 
+## License
+
+This project is licensed under the [MIT License](LICENSE).
